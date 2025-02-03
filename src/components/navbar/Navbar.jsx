@@ -2,42 +2,49 @@ import { useState } from "react";
 import { FaShoppingBag, FaTimes, FaBars } from "react-icons/fa";
 import "./Navbar.css";
 import logo from "../assets/about/logo1-removebg-preview.png"
+import { Link } from "react-router-dom";
+import { useCart } from '../../context/CartContext';
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { getCartItemsCount } = useCart();
 
   return (
-    <header id="header">
-      <a href="/">
-        <img src={logo} alt="store logo" className="logo" />
-      </a>
+    <section id="header">
+      <Link to="/">
+        <img src={logo} alt="logo" className="logo" />
+      </Link>
       
-      <div>
+      <div className="nav-container">
         <nav id="navbar" className={menuOpen ? "active" : ""}>
           <ul>
-            <li><a href="/shop">Shop</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/about">About</a></li>
-            <li>
-              <a href="/cart" className="cart-icon">
-                <FaShoppingBag />
-              </a>
-            </li>
+          
+            <li><Link to="/shop">Shop</Link></li>
+            <li><Link to="/blog">Blog</Link></li>
+            <li><Link to="/about">About</Link></li>
           </ul>
           <div id="close" onClick={() => setMenuOpen(false)}>
             <FaTimes />
           </div>
         </nav>
+        
+        <Link to="/cart" className="cart-icon">
+          <FaShoppingBag />
+          {getCartItemsCount() > 0 && (
+            <span className="cart-badge">{getCartItemsCount()}</span>
+          )}
+        </Link>
       </div>
 
       <div id="mobile">
-        <a href="/cart">
+        <Link to="/cart" className="cart-icon">
           <FaShoppingBag />
-        </a>
+        </Link>
         <button onClick={() => setMenuOpen(true)}>
           <FaBars />
         </button>
       </div>
-    </header>
+    </section>
   );
 };
 

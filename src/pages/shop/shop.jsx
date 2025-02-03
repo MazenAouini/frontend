@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useCart } from '../../context/CartContext'
 import './shop.css'
 import new_collections from '../../components/assets/products/data'
 
 const Shop = () => {
+  const { addToCart } = useCart()
   const [sortBy, setSortBy] = useState('featured')
   const [priceRange, setPriceRange] = useState('all')
   const [selectedCategory, setSelectedCategory] = useState('all')
@@ -51,6 +53,11 @@ const Shop = () => {
   }
 
   const filteredAndSortedProducts = sortProducts(filterProducts(new_collections))
+
+  const handleAddToCart = (e, product) => {
+    e.preventDefault() // Prevent navigation when clicking add to cart
+    addToCart(product)
+  }
 
   return (
     <div className='shop'>
@@ -121,7 +128,12 @@ const Shop = () => {
               <div className='product-image'>
                 <img src={product.image} alt={product.name} />
                 <div className='product-actions'>
-                  <button className='add-to-cart'>Add to Cart</button>
+                  <button 
+                    className='add-to-cart'
+                    onClick={(e) => handleAddToCart(e, product)}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
               <div className='product-details'>

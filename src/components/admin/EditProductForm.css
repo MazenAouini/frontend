@@ -1,0 +1,122 @@
+.edit-product-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .edit-product-modal {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+  }
+  
+  .close-btn:hover {
+    color: #333;
+  }
+  
+  .edit-product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .current-image {
+    width: 200px;
+    height: 200px;
+    margin: 1rem 0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .current-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .image-upload-label {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #4299e1;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+  
+  .image-input {
+    display: none;
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .cancel-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+  }
+  
+  .cancel-btn:hover {
+    background: #f0f0f0;
+  }
+  
+  .remove-size-btn {
+    background: #f56565;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .remove-size-btn:hover {
+    background: #e53e3e;
+  }
+  
+  @media (max-width: 768px) {
+    .edit-product-modal {
+      width: 95%;
+      padding: 1rem;
+    }
+  
+    .form-actions {
+      flex-direction: column;
+    }
+  } 

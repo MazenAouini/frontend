@@ -1,0 +1,131 @@
+.product-form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+  
+  .form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .form-header h2 {
+    margin: 0;
+    color: #2d3748;
+    font-size: 1.5rem;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+  }
+  
+  .close-btn:hover {
+    color: #333;
+  }
+  
+  .product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .form-group label {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .form-group input,
+  .form-group select {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .size-input-group {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .size-input-group input {
+    flex: 1;
+  }
+  
+  .add-size-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+  }
+  
+  .add-size-btn:hover {
+    background: #45a049;
+  }
+  
+  .submit-btn {
+    background: #2c5282;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    margin-top: 1rem;
+  }
+  
+  .submit-btn:hover {
+    background: #2b6cb0;
+  }
+  
+  .submit-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .error-message {
+    background: #fff5f5;
+    color: #c62828;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .product-form-container {
+      padding: 1rem;
+    }
+  
+    .size-input-group {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  } 

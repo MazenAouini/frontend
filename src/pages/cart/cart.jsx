@@ -2,21 +2,28 @@ import React, { useState } from 'react'
 import './cart.css'
 import { Link } from 'react-router-dom'
 import { FaTrash } from 'react-icons/fa'
+import { useCart } from '../../context/CartContext'
 
 const Cart = () => {
+  const { 
+    cartItems, 
+    removeFromCart, 
+    updateQuantity, 
+    clearCart,
+    getCartTotal 
+  } = useCart();
+  
   const [orderPlaced, setOrderPlaced] = useState(false)
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  // Example cart items - in a real app, this would come from state management
-  const cartItems = [
-    {
-      id: 1,
-      name: "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
-      price: 50.0,
-      quantity: 1,
-      image: "path_to_image"
-    }
-  ]
+  const [shippingAddress, setShippingAddress] = useState({
+    street: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    country: '',
+    phone: ''
+  });
 
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0)
@@ -24,28 +31,72 @@ const Cart = () => {
 
   const handlePlaceOrder = async () => {
     try {
-      setIsLoading(true)
-      // Order logic
-      setOrderPlaced(true)
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setIsLoading(false)
-    }
-  }
+      setIsLoading(true);
+      setError(null);
 
-  // Add quantity handlers
+      const orderData = {
+        products: cartItems.map(item => ({
+          product: item.id,
+          quantity: item.quantity,
+          price: item.price
+        })),
+        shippingAddress
+      };
+
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add your authentication token here
+          'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        },
+        body: JSON.stringify(orderData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to place order');
+      }
+
+      setOrderPlaced(true);
+      clearCart(); // Clear the cart after successful order
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleIncreaseQuantity = (itemId) => {
-    // Update quantity logic
-  }
+    const item = cartItems.find(item => item.id === itemId);
+    if (item) {
+      updateQuantity(itemId, item.quantity + 1);
+    }
+  };
 
   const handleDecreaseQuantity = (itemId) => {
-    // Update quantity logic
-  }
+    const item = cartItems.find(item => item.id === itemId);
+    if (item && item.quantity > 1) {
+      updateQuantity(itemId, item.quantity - 1);
+    }
+  };
 
   const handleRemoveItem = (itemId) => {
-    // Add remove item logic
-  }
+    removeFromCart(itemId);
+  };
+
+  // Add shipping form JSX before the order summary
+  const renderShippingForm = () => (
+    <div className="shipping-form">
+      <h2>Shipping Information</h2>
+      <input
+        type="text"
+        placeholder="Street"
+        value={shippingAddress.street}
+        onChange={(e) => setShippingAddress({...shippingAddress, street: e.target.value})}
+      />
+      {/* Add similar inputs for city, state, postalCode, country, and phone */}
+    </div>
+  );
 
   if (orderPlaced) {
     return (
@@ -104,6 +155,8 @@ const Cart = () => {
               </div>
             ))}
           </div>
+          
+          {renderShippingForm()}
           
           <div className='cart-summary'>
             <h2>Order Summary</h2>

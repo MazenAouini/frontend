@@ -1,75 +1,138 @@
 #header {
     display: flex;
     align-items: center;
-    
+    justify-content: space-between;
     padding: 20px 80px;
-    background: #E3E6F3;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
-    z-index: 999;
-    position: flex;
+    background: #ffffff;
+    box-shadow: 0 5px 15px rgba(128, 128, 128, 0.15);
+    position: sticky;
     top: 0;
     left: 0;
+    z-index: 999;
 }
 
 .logo {
-    height:100px;
-    width: 100px;
-    
+    height: 60px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+/* Container for nav items and cart */
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
 }
 
 #navbar {
     display: flex;
     align-items: center;
-    justify-content: center;
+    margin: 0 auto; /* This centers the navbar */
 }
 
 #navbar ul {
     display: flex;
     align-items: center;
-    padding-left: 425px;
+    justify-content: center;
+    gap: 3rem;
+    padding: 0;
+    margin: 0;
 }
 
 #navbar li {
     list-style: none;
-    padding: 0 20px;
     position: relative;
 }
 
 #navbar li a {
     text-decoration: none;
-    font-size: 25px;
-    font-weight: 600;
-    color: #1a1a1a;
-    transition: 0.3s ease;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333333;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    text-transform: uppercase; /* Makes text uppercase */
+    letter-spacing: 1px; /* Adds spacing between letters */
 }
 
 #navbar li a:hover,
 #navbar li a.active {
-    color: #088178;
+    color: #000000;
+    background: rgba(0, 0, 0, 0.05);
 }
 
-#navbar li a.active::after,
-#navbar li a:hover::after {
+#navbar li a::after {
     content: "";
-    width: 30%;
+    width: 0;
     height: 2px;
-    background: #088178;
+    background: #000000;
     position: absolute;
     bottom: -4px;
-    left: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
 }
 
+#navbar li a:hover::after,
+#navbar li a.active::after {
+    width: 70%;
+}
+
+/* Cart Icon Styles */
+.cart-icon {
+    position: relative;
+    color: #333333;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.cart-icon:hover {
+    color: #000000;
+    transform: translateY(-2px);
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #D4AF37;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: 600;
+}
+
+/* Mobile Menu Styles */
 #mobile {
     display: none;
     align-items: center;
+    gap: 20px;
+}
+
+#mobile .cart-icon {
+    margin-left: 0;
 }
 
 #mobile button {
     border: none;
     background: none;
     cursor: pointer;
-    padding: 0 20px;
-    color: #1a1a1a;
+    color: #333333;
+}
+
+#mobile button:hover {
+    color: #000000;
 }
 
 #close {
@@ -79,7 +142,11 @@
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     #header {
-        padding: 20px 30px;
+        padding: 20px 40px;
+    }
+
+    .nav-container {
+        justify-content: flex-end;
     }
 
     #navbar {
@@ -92,10 +159,11 @@
         right: -300px;
         height: 100vh;
         width: 300px;
-        background-color: #E3E6F3;
-        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        box-shadow: -5px 0 15px rgba(128, 128, 128, 0.15);
         padding: 80px 0 0 10px;
         transition: 0.3s ease-in-out;
+        margin: 0;
     }
 
     #navbar.active {
@@ -104,15 +172,24 @@
 
     #navbar ul {
         flex-direction: column;
-    }
-
-    #navbar li {
-        margin-bottom: 25px;
+        gap: 1.5rem;
+        align-items: flex-start; /* Align items to the left in mobile view */
+        width: 100%;
     }
 
     #mobile {
         display: flex;
-        align-items: center;
+    }
+
+    #mobile i {
+        color: #333333;
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    #mobile i:hover {
+        color: #000000;
     }
 
     #close {
@@ -120,8 +197,33 @@
         position: absolute;
         top: 30px;
         right: 30px;
-        color: #222;
+        color: #333333;
         font-size: 24px;
         cursor: pointer;
     }
+
+    #close:hover {
+        color: #000000;
+    }
+
+    .nav-container .cart-icon {
+        display: none;
+    }
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ff4444;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8rem;
+    min-width: 18px;
+    text-align: center;
+}
+
+.nav-link {
+    position: relative;
 }

@@ -11,68 +11,71 @@ import About from './pages/about/About.jsx'
 import SingleProduct from './pages/sproduct/sProduct.jsx'
 import Login from './pages/adminlogin/login.jsx';
 import Dashboard from './pages/admindashboard/Dashboard.jsx';
-
-// Protected Route Component
-const PrivateRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
-  return token ? children : <Navigate to="/adminlogin" />;
-};
+import { CartProvider } from './context/CartContext';
 
 const App = () => {
-  return (
-    <div className='App'>
-      <Routes>
-        {/* Admin Routes */}
-        <Route path="/adminlogin" element={<Login />} />
-        <Route
-          path="/dashboard/*"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
+  // Move PrivateRoute inside App component
+  const PrivateRoute = ({ children }) => {
+    const token = localStorage.getItem('token');
+    return token ? children : <Navigate to="/adminlogin" replace />;
+  };
 
-        {/* Public Routes */}
-        <Route path="/" element={
-          <>
-            <Navbar />
-            <Hero />
-            <NewArrivals />
-            <FeatureSection />
-            <Footer />
-          </>
-        } />
-        <Route path="/shop" element={
-          <>
-            <Navbar />
-            <Shop />
-            <Footer />
-          </>
-        } />
-        <Route path="/about" element={
-          <>
-            <Navbar />
-            <About />
-            <Footer />
-          </>
-        } />
-        <Route path="/cart" element={
-          <>
-            <Navbar />
-            <Cart />
-            <Footer />
-          </>
-        } />
-        <Route path="/product/:id" element={
-          <>
-            <Navbar />
-            <SingleProduct />
-            <Footer />
-          </>
-        } />
-      </Routes>
-    </div>
+  return (
+    <CartProvider>
+      <div className='App'>
+        <Routes>
+          {/* Admin Routes */}
+          <Route path="/adminlogin" element={<Login />} />
+          <Route
+            path="/dashboard/*"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Public Routes */}
+          <Route path="/" element={
+            <>
+              <Navbar />
+              <Hero />
+              <NewArrivals />
+              <FeatureSection />
+              <Footer />
+            </>
+          } />
+          <Route path="/shop" element={
+            <>
+              <Navbar />
+              <Shop />
+              <Footer />
+            </>
+          } />
+          <Route path="/about" element={
+            <>
+              <Navbar />
+              <About />
+              <Footer />
+            </>
+          } />
+          <Route path="/cart" element={
+            <>
+              <Navbar />
+              <Cart />
+              <Footer />
+            </>
+          } />
+          <Route path="/product/:id" element={
+            <>
+              <Navbar />
+              <SingleProduct />
+              <Footer />
+            </>
+          } />
+        </Routes>
+      </div>
+    </CartProvider>
   );
 };
 
